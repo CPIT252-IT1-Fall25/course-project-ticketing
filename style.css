@@ -14,7 +14,7 @@
 
     .header{
        
-         background-color: rgba(0, 0, 0, 0.406);
+         background-color: rgb(0, 0, 0);
 
          
         display: flex;
@@ -24,11 +24,19 @@
         
     }
 
+    .header-Links {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* مسافة بين الأزرار */
+}
+
     .header-Links a{
         background-color: rgba(250, 235, 215, 0.278);
-        
+        align-items: center;
+        margin-right: 0px;
         color: rgb(0, 0, 0);
-        padding: 2px 20px;
+        padding: 5px 20px;
+
         text-decoration: none;
         border-radius: 15px;
         
@@ -36,8 +44,15 @@
         
     }
 
+    .header-margin {
+         margin-left: 30;
+    }
+
     .header-Links a:hover{
         background-color: antiquewhite;
+        transition: background-color 0.5s ease;
+        transition: color 0.5s ease;
+
         color: rgb(255, 85, 0);
         
 
@@ -137,7 +152,7 @@ input:checked + .slider:before {
 
 .container{
     background-color: rgb(22, 22, 22);
-    height:100vh;
+    min-height:calc(100vh - 50px) ;
     color: white;
 }
 
@@ -175,33 +190,83 @@ border-radius: 15px;
 }
 
 .moive-list-container{
-
-
+ 
+padding: 20px;
 }
 
 .moive-list-title{
-
+ margin-right: 30px;
 }
-.moive-list-wrapper{
 
+.moive-list-wrapper{
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .moive-list{
-
-
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
 }
+
 .moive-list-item{
-
+    flex-shrink: 0;
+    width: 270px;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
 }
 
-.moive-list-item-iamg{
+.moive-list-item-iamge{
+    width: 270px;
+    height: 200px; 
+    object-fit: cover;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+    display: block;
+}
 
+.moive-list-item:hover .moive-list-item-iamge{
+    transform: scale(1.1);
 }
 
 .moive-list-item-title{
-
+    display: block;
+    margin-top: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .moive-list-itme-desc{
+    color: #999;
+    font-size: 12px;
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+}
+
+.moive-list-item-button{
+    margin-top: 10px;
+
+    padding: 10px 20px;
+    background-color: rgb(173, 38, 38);
+    border-color: black;
+    color: white;
+    border: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Stack Sans Text", sans-serif;
+    transition: background-color 0.3s ease;
+
+   
     
+}
+
+.moive-list-item-button:hover{
+    background-color: rgb(203, 81, 81);
 }
