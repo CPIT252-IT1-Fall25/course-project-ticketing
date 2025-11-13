@@ -28,7 +28,6 @@ public class LoginServlet extends HttpServlet {
         boolean ok = login.handleLogin(email, password);
 
         if (ok) {
-            // successful login -> go to main page
             resp.sendRedirect("index.html");
         } else {
             resp.setContentType("text/html;charset=UTF-8");

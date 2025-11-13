@@ -4,7 +4,6 @@ public class AuthService {
 
     private final UserStore userStore;
 
-    // Dependency injected user store (we will pass the singleton)
     public AuthService(UserStore userStore) {
         this.userStore = userStore;
     }

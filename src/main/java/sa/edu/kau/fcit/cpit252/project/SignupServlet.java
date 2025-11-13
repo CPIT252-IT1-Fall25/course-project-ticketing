@@ -15,7 +15,6 @@ public class SignupServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        // Signup internally uses singleton InMemoryUserStore
         this.signup = new Signup();
     }
 
@@ -23,7 +22,6 @@ public class SignupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        // ⚠ Your HTML uses name="Name" (capital N)
         String name = req.getParameter("Name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
@@ -31,7 +29,7 @@ public class SignupServlet extends HttpServlet {
         boolean ok = signup.handleSignup(name, email, password);
 
         if (ok) {
-            // redirect to login page
+           
             resp.sendRedirect("LogginPage.html");
         } else {
             resp.setContentType("text/html;charset=UTF-8");

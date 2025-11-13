@@ -5,14 +5,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryUserStore implements UserStore {
 
-    // --- Singleton instance ---
     private static final InMemoryUserStore INSTANCE = new InMemoryUserStore();
 
-    // Internal storage
     private final Map<String, User> users = new ConcurrentHashMap<>();
 
-    // Private constructor: no one can create another instance
-    private InMemoryUserStore() {}
+    private InMemoryUserStore() {
+    }
 
     // Global access point
     public static InMemoryUserStore getInstance() {
