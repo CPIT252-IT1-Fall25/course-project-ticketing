@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <title>Book Tickets - FAKEnetflix</title>
+  <script src="theme-switcher.js"></script>
+  <script src="user-greeting.js"></script>
+</head>
+<body>
+  <div class="header">
+    <img
+      src="iamge/Logo/201563513-c2c7a03a-7ee0-4fea-869c-76f83f2557ac.png"
+      width="200"
+      alt="FAKEnetflix Logo"
+    />
+    <div class="header-Links header-margin">
+      <a href="index.html">Home</a>
+      <a href="#footerFQC">FQC</a>
+      <button class="header-Links">Sign in</button>
+      <label class="switch">
+        <input type="checkbox" />
+        <span class="slider"></span>
+      </label>
+      <div class="profile-contaiern">
+        <img
+          class="profile-pic"
+          src="https://pic.onlinewebfonts.com/thumbnails/icons_568656.svg"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="booking-wrapper">
+      <div class="booking-card">
+        <h1 class="booking-title">Book Your Tickets</h1>
+        
+        <form id="bookingForm" class="booking-form">
+          <!-- Cinema Location Selection -->
+          <div class="form-section">
+            <label class="form-label">Select Cinema Location <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="cinemaLocation" value="jeddah" required>
+                <span class="radio-label">Jeddah – Town Square Jeddah</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="cinemaLocation" value="riyadh" required>
+                <span class="radio-label">Riyadh – Al Yasmin district</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Hall Type Selection (if needed) -->
+          <div class="form-section" id="hallTypeSection" style="display: none;">
+            <label class="form-label">Select Hall Type</label>
+            <select class="form-select" name="hallType" id="hallType">
+              <option value="">Select Hall Type</option>
+              <option value="standard">Standard Hall</option>
+              <option value="premium">Premium Hall</option>
+            </select>
+          </div>
+
+          <!-- Show Time Selection -->
+          <div class="form-section" id="showTimeSection" style="display: none;">
+            <label class="form-label">Select Show Time <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="showTime" value="7:00 PM" required>
+                <span class="radio-label">7:00 PM</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="showTime" value="10:30 PM" required>
+                <span class="radio-label">10:30 PM</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Ticket Type Selection -->
+          <div class="form-section" id="ticketTypeSection" style="display: none;">
+            <label class="form-label">Select Ticket Type <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="ticketType" value="regular" required>
+                <span class="radio-label">Regular Ticket (30 SAR)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="ticketType" value="pro" required>
+                <span class="radio-label">PRO Ticket (40 SAR)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Number of Tickets -->
+          <div class="form-section" id="ticketQuantitySection" style="display: none;">
+            <label class="form-label">Number of Tickets <span class="required">*</span></label>
+            <input 
+              type="number" 
+              class="form-input" 
+              name="ticketQuantity" 
+              id="ticketQuantity"
+              min="1" 
+              value="1" 
+              required
+            >
+          </div>
+
+          <!-- Popcorn Selection (Optional) -->
+          <div class="form-section" id="popcornSection" style="display: none;">
+            <label class="form-label">
+              <input type="checkbox" id="popcornCheckbox" name="wantPopcorn">
+              <span>Add Popcorn (15 SAR per portion)</span>
+            </label>
+            <div id="popcornQuantityDiv" style="display: none; margin-top: 10px;">
+              <label class="form-label">Number of Popcorn Portions</label>
+              <input 
+                type="number" 
+                class="form-input" 
+                name="popcornQuantity" 
+                id="popcornQuantity"
+                min="1" 
+                value="1"
+              >
+            </div>
+          </div>
+
+          <!-- Price Summary -->
+          <div class="form-section" id="priceSummary" style="display: none;">
+            <div class="price-breakdown">
+              <h3>Price Summary</h3>
+              <div class="price-item">
+                <span>Tickets:</span>
+                <span id="ticketPrice">0 SAR</span>
+              </div>
+              <div class="price-item" id="popcornPriceItem" style="display: none;">
+                <span>Popcorn:</span>
+                <span id="popcornPrice">0 SAR</span>
+              </div>
+              <div class="price-item total">
+                <span>Total:</span>
+                <span id="totalPrice">0 SAR</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="booking-submit-btn" id="submitBtn" style="display: none;">
+            Complete Booking
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="booking.js"></script>
+</body>
+</html>
+

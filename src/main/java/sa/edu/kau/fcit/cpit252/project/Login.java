@@ -15,4 +15,8 @@ public class Login {
     public boolean handleLogin(String email, String password) {
         return authService.login(email, password);
     }
+    
+    public User handleLoginAndGetUser(String email, String password) {
+        return authService.loginAndGetUser(email, password);
+    }
 }

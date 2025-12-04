@@ -53,6 +53,13 @@
       <artifactId>javaee-api</artifactId>
       <version>8.0.1</version>
     </dependency>
+    
+    <!-- SQL Server JDBC Driver for Azure SQL -->
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <version>12.4.2.jre11</version>
+    </dependency>
   </dependencies>
 
   <build>

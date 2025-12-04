@@ -20,4 +20,12 @@ public class AuthService {
         User user = userStore.findByEmail(email);
         return user != null && user.getPassword().equals(password);
     }
+    
+    public User loginAndGetUser(String email, String password) {
+        User user = userStore.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
 }

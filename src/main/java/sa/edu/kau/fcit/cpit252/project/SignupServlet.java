@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -29,8 +30,15 @@ public class SignupServlet extends HttpServlet {
         boolean ok = signup.handleSignup(name, email, password);
 
         if (ok) {
-           
-            resp.sendRedirect("LogginPage.html");
+            // Store user information in session after signup
+            HttpSession session = req.getSession();
+            User user = InMemoryUserStore.getInstance().findByEmail(email);
+            if (user != null) {
+                session.setAttribute("user", user);
+                session.setAttribute("userName", user.getName());
+                session.setAttribute("userEmail", user.getEmail());
+            }
+            resp.sendRedirect("index.html");
         } else {
             resp.setContentType("text/html;charset=UTF-8");
             resp.getWriter().write("<h1>User already exists</h1>");
