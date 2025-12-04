@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+  <title>FAKEnetflix</title>
+  <style>
+    body, html {
+      background-color: #9e1f1f;
+      margin: 0;
+      padding: 0;
+    }
+    .login-wrapper {
+      background-color: #9e1f1f;
+    }
+  </style>
+</head>
+
+<div class="header-logIn">
+    <img
+      src="iamge/Logo/201563513-c2c7a03a-7ee0-4fea-869c-76f83f2557ac.png"
+      width="200"
+      alt="FAKEnetflix Logo"
+      
+    />
+
+    <div class="header-Links" >
+      <a href="index.html">Home</a>
+      <!-- From Uiverse.io by alexruix -->
+      <label class="switch">
+        <input type="checkbox" />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+
+  <div class="login-wrapper" style="padding-top: 150px; ">
+  <form class="login-card" action="/signup" method="post">
+    <h1>Creat Account</h1>
+
+     <label for="Name">Name</label>
+    <input id="Name" name="Name" type="text" placeholder="Your Name" required />
+     
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" placeholder="you@example.com" required />
+    
+   
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" placeholder="changeMe" required />
+
+    <div class="login-row">
+      <label class="remember">
+        <input type="checkbox" name="remember" />
+        <span><a href="d" class="Acceptance">Acceptance of terms and conditions</a></span>
+      </label>
+    
+    </div>
+
+    <button type="submit" class="login-btn">Sign Up</button>
+
+    <p class="signup-hint">
+      Do you already have an <a href="LogginPage.html">account?</a>
+    </p>
+  </form>
+</div>

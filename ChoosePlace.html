@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+  <title>FAKEnetflix</title>
+</head>
+
+<div class="header-logIn">
+    <img
+      src="iamge/Logo/201563513-c2c7a03a-7ee0-4fea-869c-76f83f2557ac.png"
+      width="200"
+      alt="FAKEnetflix Logo"
+      
+    />
+
+    <div class="header-Links" >
+      <a href="index.html">Home</a>
+      <!-- From Uiverse.io by alexruix -->
+      <label class="switch">
+        <input type="checkbox" />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+  <div class="login-wrapper" style="padding-top: 150px; background-color: #9e1f1f;">
+    <form class="login-card" action="#" method="get">
+      <h1>Book Your Tickets</h1>
+      
+      <!-- Cinema Location Selection -->
+      <label for="cinemaLocation">Select Cinema Location</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="cinemaLocation" id="cinemaLocation" value="jeddah" required>
+          <span class="radio-label">Jeddah – Town Square Jeddah</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="cinemaLocation" value="riyadh">
+          <span class="radio-label">Riyadh – Al Yasmin district</span>
+        </label>
+      </div>
+
+      <!-- Show Time -->
+      <label for="showTime">Select Show Time</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="showTime" id="showTime" value="7:00 PM" required>
+          <span class="radio-label">7:00 PM</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="showTime" value="10:30 PM">
+          <span class="radio-label">10:30 PM</span>
+        </label>
+      </div>
+
+      <!-- Ticket Type -->
+      <label for="ticketType">Select Ticket Type</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="ticketType" id="ticketType" value="regular" required>
+          <span class="radio-label">Regular Ticket (30 SAR)</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="ticketType" value="pro">
+          <span class="radio-label">PRO Ticket (40 SAR)</span>
+        </label>
+      </div>
+
+      <!-- Number of Tickets -->
+      <label for="ticketQuantity">Number of Tickets</label>
+      <input 
+        type="number" 
+        id="ticketQuantity"
+        name="ticketQuantity" 
+        min="1" 
+        value="1"
+        required
+      >
+
+      <!-- Popcorn Checkbox -->
+      <div class="login-row" style="justify-content: flex-start;">
+        <label class="remember">
+          <input type="checkbox" name="wantPopcorn">
+          <span>Add Popcorn (15 SAR per portion)</span>
+        </label>
+      </div>
+
+      <!-- Number of Popcorn Portions -->
+      <label for="popcornQuantity">Number of Popcorn Portions</label>
+      <input 
+        type="number" 
+        id="popcornQuantity"
+        name="popcornQuantity"
+        min="0" 
+        value="0"
+      >
+
+      <!-- Price Summary -->
+      <div class="price-breakdown">
+        <h3 style="margin: 20px 0 10px 0; font-size: 16px; color: #bbb;">Price Summary</h3>
+        <div class="price-item" style="display: flex; justify-content: space-between; margin: 8px 0; color: #bbb; font-size: 14px;">
+          <span>Tickets:</span>
+          <span>30 SAR (Regular) or 40 SAR (PRO) × quantity</span>
+        </div>
+        <div class="price-item total" style="display: flex; justify-content: space-between; margin: 8px 0; color: #fff; font-size: 16px; font-weight: 600; padding-top: 10px; border-top: 1px solid #2a2a2a;">
+          <span>Total:</span>
+          <span>Calculate manually for prototype</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="login-btn">
+        Complete Booking
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>
+
