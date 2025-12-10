@@ -1,4 +1,4 @@
-package sa.edu.kau.fcit.cpit252.project;
+package sa.edu.kau.fcit.cpit252.project.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -1,61 +1,67 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- BOOTSTRAP CSS -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="style.css" />
   <title>FAKEnetflix</title>
-  <script src="theme-switcher.js"></script>
-  <script src="user-greeting.js"></script>
 </head>
 
-<div class="header-logIn">
+<body style="background:black;">
+
+  <!-- Header -->
+  <div class="header-logIn">
     <img
       src="iamge/Logo/201563513-c2c7a03a-7ee0-4fea-869c-76f83f2557ac.png"
       width="200"
       alt="FAKEnetflix Logo"
-      
     />
+  </div>
 
-    <div class="header-Links" >
+  <!-- Login Form -->
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="card p-4 shadow-lg" style="max-width:400px; width:100%; background:#111; color:white;">
       
-      <!-- From Uiverse.io by alexruix -->
-      <label class="switch">
-        <input type="checkbox" />
-        <span class="slider"></span>
-      </label>
+      <h2 class="text-center mb-4">Sign In</h2>
 
-      
+      <form action="login" method="post">
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input class="form-control" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input class="form-control" name="password" type="password" placeholder="changeMe" required />
+        </div>
+
+        <div class="d-flex justify-content-between mb-3">
+          <div>
+            <input type="checkbox" name="remember" />
+            <label>Remember me</label>
+          </div>
+          <a class="text-info" href="#">Forgot password?</a>
+        </div>
+
+        <button class="btn btn-danger w-100">Sign In</button>
+
+        <p class="text-center mt-3">
+          New to FAKEnetflix? <a href="CreatAccount.html" class="text-info">Create an account</a>
+        </p>
+
+      </form>
+
     </div>
   </div>
 
+  <!-- BOOTSTRAP JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <div class="login-wrapper">
-  <form class="login-card" action="login" method="post">
-    <h1>Sign In</h1>
-
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" placeholder="you@example.com" required />
-    
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password" placeholder="changeMe" required />
-
-    <div class="login-row">
-      <label class="remember">
-        <input type="checkbox" name="remember" />
-        <span>Remember me</span>
-      </label>
-      <a class="forgot" href="#">Forgot password?</a>
-    </div>
-
-    <button type="submit" class="login-btn">Sign In</button>
-
-  <p class="signup-hint">
-      New to FAKEnetflix? <a href="CreatAccount.html">Create an account</a>
-    </p>
-  </form>
-</div>
+</body>
+</html>

@@ -1,4 +1,8 @@
-package sa.edu.kau.fcit.cpit252.project;
+package sa.edu.kau.fcit.cpit252.project.controller;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.sql.SQLException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,11 +10,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.sql.SQLException;
+import sa.edu.kau.fcit.cpit252.project.model.Movie;
+import sa.edu.kau.fcit.cpit252.project.service.BookingService;
+import sa.edu.kau.fcit.cpit252.project.service.MovieService;
+import sa.edu.kau.fcit.cpit252.project.service.ShowService;
 
 @WebServlet("/booking")
 public class BookingServlet extends HttpServlet {

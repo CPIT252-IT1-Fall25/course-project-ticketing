@@ -1,8 +1,14 @@
-package sa.edu.kau.fcit.cpit252.project;
-
-import java.sql.*;
+package sa.edu.kau.fcit.cpit252.project.service;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import sa.edu.kau.fcit.cpit252.project.model.Movie;
+import sa.edu.kau.fcit.cpit252.project.store.DatabaseConnection;
 
 public class MovieService {
     

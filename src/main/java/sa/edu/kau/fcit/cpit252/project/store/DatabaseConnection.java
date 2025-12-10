@@ -1,4 +1,4 @@
-package sa.edu.kau.fcit.cpit252.project;
+package sa.edu.kau.fcit.cpit252.project.store;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

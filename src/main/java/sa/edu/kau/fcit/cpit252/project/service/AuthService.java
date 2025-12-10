@@ -1,5 +1,6 @@
-package sa.edu.kau.fcit.cpit252.project;
-
+package sa.edu.kau.fcit.cpit252.project.service;
+import sa.edu.kau.fcit.cpit252.project.model.User;
+import sa.edu.kau.fcit.cpit252.project.store.UserStore;
 public class AuthService {
 
     private final UserStore userStore;
