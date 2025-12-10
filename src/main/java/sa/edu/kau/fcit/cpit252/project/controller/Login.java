@@ -1,4 +1,7 @@
-package sa.edu.kau.fcit.cpit252.project;
+package sa.edu.kau.fcit.cpit252.project.controller;
+import sa.edu.kau.fcit.cpit252.project.model.User;
+import sa.edu.kau.fcit.cpit252.project.service.AuthService;
+import sa.edu.kau.fcit.cpit252.project.store.InMemoryUserStore;
 
 public class Login {
 
@@ -14,5 +17,9 @@ public class Login {
 
     public boolean handleLogin(String email, String password) {
         return authService.login(email, password);
+    }
+    
+    public User handleLoginAndGetUser(String email, String password) {
+        return authService.loginAndGetUser(email, password);
     }
 }

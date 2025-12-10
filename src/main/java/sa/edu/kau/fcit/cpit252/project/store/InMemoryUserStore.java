@@ -1,7 +1,8 @@
-package sa.edu.kau.fcit.cpit252.project;
-
+package sa.edu.kau.fcit.cpit252.project.store;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import sa.edu.kau.fcit.cpit252.project.model.User;
 
 public class InMemoryUserStore implements UserStore {
 
