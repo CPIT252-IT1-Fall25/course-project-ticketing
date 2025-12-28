@@ -680,6 +680,33 @@ padding: 20px;
     color: var(--text-primary);
 }
 
+.seat-availability {
+    background: var(--bg-input);
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    margin: 20px 0;
+}
+
+.seat-availability h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+.seat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.seat-item:last-child {
+    border-bottom: none;
+}
+
 .booking-submit-btn {
     width: 100%;
     padding: 14px 20px;

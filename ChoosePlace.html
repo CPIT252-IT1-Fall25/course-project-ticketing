@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="style.css" />
   <title>FAKEnetflix</title>
 </head>
+<body>
 
 <div class="header-logIn">
     <img
@@ -57,6 +58,19 @@
           <input type="radio" name="showTime" value="10:30 PM">
           <span class="radio-label">10:30 PM</span>
         </label>
+      </div>
+
+      <!-- Seat Availability Section -->
+      <div id="seatAvailabilitySection" class="seat-availability" style="display: none;">
+        <h3>Seat Availability</h3>
+        <div class="seat-item">
+          <span>عدد الكراسي العادية المتاحة:</span>
+          <span id="regularSeatsCount">60</span>
+        </div>
+        <div class="seat-item">
+          <span>عدد الكراسي البرو المتاحة:</span>
+          <span id="proSeatsCount">40</span>
+        </div>
       </div>
 
       <!-- Ticket Type -->
@@ -121,6 +135,39 @@
     </form>
   </div>
   <script src="theme-switcher.js"></script>
+  <script>
+    // Seat availability handler
+    document.addEventListener('DOMContentLoaded', function() {
+      const locationInputs = document.querySelectorAll('input[name="cinemaLocation"]');
+      const timeInputs = document.querySelectorAll('input[name="showTime"]');
+      const seatAvailabilitySection = document.getElementById('seatAvailabilitySection');
+      
+      // Default seat counts
+      const defaultRegularSeats = 60;
+      const defaultProSeats = 40;
+      
+      function checkAndShowSeatAvailability() {
+        const locationSelected = Array.from(locationInputs).some(input => input.checked);
+        const timeSelected = Array.from(timeInputs).some(input => input.checked);
+        
+        if (locationSelected && timeSelected) {
+          seatAvailabilitySection.style.display = 'block';
+        } else {
+          seatAvailabilitySection.style.display = 'none';
+        }
+      }
+      
+      // Add event listeners to location inputs
+      locationInputs.forEach(input => {
+        input.addEventListener('change', checkAndShowSeatAvailability);
+      });
+      
+      // Add event listeners to time inputs
+      timeInputs.forEach(input => {
+        input.addEventListener('change', checkAndShowSeatAvailability);
+      });
+    });
+  </script>
 
 </body>
 </html>
