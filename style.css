@@ -133,6 +133,22 @@
 
     }
 
+/* Sign-in link styled like a button */
+.sign-in-link{
+    font-family: "Stack Sans Text", sans-serif;
+    display: inline-block;
+    background-color: antiquewhite;
+    color: rgb(255, 85, 0);
+    padding: 5px 15px;
+    border-radius: 15px;
+    text-decoration: none;
+}
+
+.sign-in-link:hover{
+    background-color: rgb(190, 132, 56);
+    color: rgb(255, 85, 0);
+}
+
 
     .profile-contaiern{
           flex: 2;

@@ -39,7 +39,8 @@ public class SignupServlet extends HttpServlet {
                 session.setAttribute("userName", user.getName());
                 session.setAttribute("userEmail", user.getEmail());
             }
-            resp.sendRedirect("index.html");
+            // Redirect relative to the webapp context so it works regardless of deployment path
+            resp.sendRedirect(req.getContextPath() + "/index.html");
         } else {
             resp.setContentType("text/html;charset=UTF-8");
             resp.getWriter().write("<h1>User already exists</h1>");
