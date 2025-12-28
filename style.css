@@ -33,15 +33,15 @@
 
  body{
         margin: 0%;
-        
-        
-
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
   font-family: "Stack Sans Text", sans-serif;
 
     }
 
     html {
     scroll-behavior: smooth;
+    background-color: var(--bg-primary);
 }
     .logo{
         color: aqua;
