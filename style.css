@@ -729,3 +729,441 @@ padding: 20px;
 .booking-submit-btn:active {
     transform: translateY(-2px);
 }
+
+/* ============================================
+   MOVIE SEARCH BAR & MODAL STYLES
+   ============================================ */
+
+/* Search Container in Header */
+.search-container {
+    display: flex;
+    align-items: center;
+    background: var(--bg-input);
+    border: 2px solid var(--border-color);
+    border-radius: 30px;
+    padding: 5px 5px 5px 20px;
+    transition: all 0.3s ease;
+    max-width: 400px;
+    flex: 1;
+    margin: 0 30px;
+}
+
+.search-container:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(137, 68, 221, 0.2);
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: "Stack Sans Text", sans-serif;
+    outline: none;
+    padding: 8px 0;
+}
+
+.search-input::placeholder {
+    color: var(--text-tertiary);
+}
+
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-button:hover {
+    background: var(--accent-hover);
+    transform: scale(1.05);
+}
+
+/* Search Modal */
+.search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 80px;
+    z-index: 1000;
+    overflow-y: auto;
+    backdrop-filter: blur(5px);
+}
+
+.search-modal-content {
+    background: var(--bg-card);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 30px;
+    position: relative;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-modal-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: var(--text-primary);
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-modal-btn:hover {
+    color: var(--button-primary);
+    background: rgba(229, 9, 20, 0.1);
+}
+
+/* Search Results Grid */
+.search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+}
+
+.search-result-card {
+    background: var(--bg-input);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.search-result-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.search-result-poster {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.search-result-info {
+    padding: 15px;
+}
+
+.search-result-title {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search-result-year {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.search-result-type {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--accent-color);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.view-details-btn,
+.book-now-btn {
+    display: block;
+    width: calc(100% - 30px);
+    margin: 0 15px 10px 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-family: "Stack Sans Text", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.view-details-btn {
+    background: var(--border-color);
+    color: var(--text-primary);
+}
+
+.view-details-btn:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.book-now-btn {
+    background: var(--button-primary);
+    color: white;
+}
+
+.book-now-btn:hover {
+    background: var(--button-hover);
+}
+
+/* Movie Details Modal */
+.movie-details-content {
+    background: var(--bg-card);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 30px;
+    position: relative;
+    animation: slideDown 0.3s ease;
+}
+
+.movie-details-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .movie-details-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .movie-poster-section {
+        text-align: center;
+    }
+    
+    .movie-details-poster {
+        max-width: 250px;
+    }
+}
+
+.movie-poster-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.movie-details-poster {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.book-movie-btn {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background: var(--button-primary);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "Stack Sans Text", sans-serif;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.book-movie-btn:hover {
+    background: var(--button-hover);
+    transform: scale(1.02);
+}
+
+.movie-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.movie-details-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.movie-year {
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.movie-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.movie-meta span {
+    font-size: 14px;
+    color: var(--text-secondary);
+    background: var(--bg-input);
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.movie-rating {
+    color: #ffc107 !important;
+    font-weight: 600;
+}
+
+.movie-genres {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.genre-tag {
+    padding: 6px 14px;
+    background: var(--accent-color);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+}
+
+.movie-section {
+    margin-top: 10px;
+}
+
+.movie-section h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.movie-section p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.movie-section.awards {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ffc107;
+}
+
+/* Loading Spinner */
+.search-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--border-color);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.search-loading p {
+    margin-top: 15px;
+    color: var(--text-secondary);
+}
+
+/* Search Error */
+.search-error {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+/* Responsive Search */
+@media (max-width: 900px) {
+    .search-container {
+        max-width: 250px;
+        margin: 0 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    
+    .search-container {
+        order: 3;
+        max-width: 100%;
+        width: 100%;
+        margin: 10px 0 0 0;
+    }
+    
+    .search-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .search-result-poster {
+        height: 200px;
+    }
+}

@@ -115,16 +115,27 @@
         value="0"
       >
 
-      <!-- Price Summary -->
-      <div class="price-breakdown">
+      <!-- Price Summary - Calculated by Java Backend -->
+      <div class="price-breakdown" id="priceSummary">
         <h3 style="margin: 20px 0 10px 0; font-size: 16px; color: #bbb;">Price Summary</h3>
         <div class="price-item" style="display: flex; justify-content: space-between; margin: 8px 0; color: #bbb; font-size: 14px;">
           <span>Tickets:</span>
-          <span>30 SAR (Regular) or 40 SAR (PRO) × quantity</span>
+          <span id="ticketPriceDisplay">Select ticket type</span>
+        </div>
+        <div class="price-item" style="display: flex; justify-content: space-between; margin: 8px 0; color: #bbb; font-size: 14px;">
+          <span>Popcorn:</span>
+          <span id="popcornPriceDisplay">0 SAR</span>
+        </div>
+        <div class="price-item discount" id="discountRow" style="display: none; justify-content: space-between; margin: 8px 0; color: #4CAF50; font-size: 14px;">
+          <span>Bulk Discount (10%):</span>
+          <span id="discountDisplay">-0 SAR</span>
         </div>
         <div class="price-item total" style="display: flex; justify-content: space-between; margin: 8px 0; color: #fff; font-size: 16px; font-weight: 600; padding-top: 10px; border-top: 1px solid #2a2a2a;">
           <span>Total:</span>
-          <span>Calculate manually for prototype</span>
+          <span id="totalPriceDisplay">0 SAR</span>
+        </div>
+        <div id="priceLoading" style="display: none; color: #888; font-size: 12px; margin-top: 5px;">
+          Calculating price...
         </div>
       </div>
 
@@ -136,15 +147,28 @@
   </div>
   <script src="theme-switcher.js"></script>
   <script>
-    // Seat availability handler
+    // API Base URL - Empty string means same origin (works for both local and deployed)
+    const API_BASE_URL = '';
+    
+    // Seat availability and price calculation handler
     document.addEventListener('DOMContentLoaded', function() {
       const locationInputs = document.querySelectorAll('input[name="cinemaLocation"]');
       const timeInputs = document.querySelectorAll('input[name="showTime"]');
+      const ticketTypeInputs = document.querySelectorAll('input[name="ticketType"]');
+      const ticketQuantityInput = document.getElementById('ticketQuantity');
+      const popcornQuantityInput = document.getElementById('popcornQuantity');
       const seatAvailabilitySection = document.getElementById('seatAvailabilitySection');
       
-      // Default seat counts
-      const defaultRegularSeats = 60;
-      const defaultProSeats = 40;
+      // Price display elements
+      const ticketPriceDisplay = document.getElementById('ticketPriceDisplay');
+      const popcornPriceDisplay = document.getElementById('popcornPriceDisplay');
+      const discountRow = document.getElementById('discountRow');
+      const discountDisplay = document.getElementById('discountDisplay');
+      const totalPriceDisplay = document.getElementById('totalPriceDisplay');
+      const priceLoading = document.getElementById('priceLoading');
+      
+      // Debounce timer for API calls
+      let priceCalculationTimer;
       
       function checkAndShowSeatAvailability() {
         const locationSelected = Array.from(locationInputs).some(input => input.checked);
@@ -157,6 +181,101 @@
         }
       }
       
+      // Function to calculate price using Java backend API
+      async function calculatePrice() {
+        const selectedTicketType = document.querySelector('input[name="ticketType"]:checked');
+        const ticketQuantity = parseInt(ticketQuantityInput.value) || 0;
+        const popcornQuantity = parseInt(popcornQuantityInput.value) || 0;
+        
+        if (!selectedTicketType || ticketQuantity <= 0) {
+          ticketPriceDisplay.textContent = 'Select ticket type';
+          totalPriceDisplay.textContent = '0 SAR';
+          return;
+        }
+        
+        const ticketType = selectedTicketType.value;
+        
+        // Show loading indicator
+        priceLoading.style.display = 'block';
+        
+        try {
+          // Call Java backend API for price calculation
+          const response = await fetch(
+            `${API_BASE_URL}/calculateprice?ticketType=${ticketType}&ticketQuantity=${ticketQuantity}&popcornQuantity=${popcornQuantity}`
+          );
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            // Update ticket price display
+            ticketPriceDisplay.textContent = `${data.ticketUnitPrice} SAR × ${data.ticketQuantity} = ${data.ticketSubtotal} SAR`;
+            
+            // Update popcorn price display
+            if (popcornQuantity > 0) {
+              popcornPriceDisplay.textContent = `${data.popcornUnitPrice} SAR × ${data.popcornQuantity} = ${data.popcornSubtotal} SAR`;
+            } else {
+              popcornPriceDisplay.textContent = '0 SAR';
+            }
+            
+            // Show/hide discount row
+            if (data.discountApplied) {
+              discountRow.style.display = 'flex';
+              discountDisplay.textContent = `-${data.discount} SAR`;
+            } else {
+              discountRow.style.display = 'none';
+            }
+            
+            // Update total
+            totalPriceDisplay.textContent = `${data.total} ${data.currency}`;
+            
+            // Store total for form submission
+            document.getElementById('calculatedTotal').value = data.total;
+          } else {
+            console.error('Price calculation failed:', data.error);
+            totalPriceDisplay.textContent = 'Error calculating price';
+          }
+        } catch (error) {
+          console.error('Failed to calculate price:', error);
+          // Fallback to client-side calculation if server is unavailable
+          fallbackCalculatePrice(ticketType, ticketQuantity, popcornQuantity);
+        } finally {
+          priceLoading.style.display = 'none';
+        }
+      }
+      
+      // Fallback client-side calculation (backup if server unavailable)
+      function fallbackCalculatePrice(ticketType, ticketQuantity, popcornQuantity) {
+        const ticketPrice = ticketType === 'pro' ? 40 : 30;
+        const popcornPrice = 15;
+        
+        const ticketSubtotal = ticketPrice * ticketQuantity;
+        const popcornSubtotal = popcornPrice * popcornQuantity;
+        let total = ticketSubtotal + popcornSubtotal;
+        
+        // Apply 10% discount for 5+ tickets
+        if (ticketQuantity >= 5) {
+          total = total * 0.9;
+        }
+        
+        ticketPriceDisplay.textContent = `${ticketPrice} SAR × ${ticketQuantity} = ${ticketSubtotal} SAR`;
+        popcornPriceDisplay.textContent = popcornQuantity > 0 ? `15 SAR × ${popcornQuantity} = ${popcornSubtotal} SAR` : '0 SAR';
+        
+        if (ticketQuantity >= 5) {
+          discountRow.style.display = 'flex';
+          discountDisplay.textContent = `-${((ticketSubtotal + popcornSubtotal) * 0.1).toFixed(2)} SAR`;
+        } else {
+          discountRow.style.display = 'none';
+        }
+        
+        totalPriceDisplay.textContent = `${total.toFixed(2)} SAR`;
+      }
+      
+      // Debounced price calculation to avoid too many API calls
+      function debouncedCalculatePrice() {
+        clearTimeout(priceCalculationTimer);
+        priceCalculationTimer = setTimeout(calculatePrice, 300);
+      }
+      
       // Add event listeners to location inputs
       locationInputs.forEach(input => {
         input.addEventListener('change', checkAndShowSeatAvailability);
@@ -166,8 +285,57 @@
       timeInputs.forEach(input => {
         input.addEventListener('change', checkAndShowSeatAvailability);
       });
+      
+      // Add event listeners for price calculation
+      ticketTypeInputs.forEach(input => {
+        input.addEventListener('change', debouncedCalculatePrice);
+      });
+      
+      ticketQuantityInput.addEventListener('input', debouncedCalculatePrice);
+      popcornQuantityInput.addEventListener('input', debouncedCalculatePrice);
+      
+      // Form submission handler
+      document.querySelector('.login-card').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+          movieName: new URLSearchParams(window.location.search).get('movie') || 'Unknown Movie',
+          location: document.querySelector('input[name="cinemaLocation"]:checked')?.value === 'jeddah' 
+            ? 'Jeddah – Town Square Jeddah' 
+            : 'Riyadh – Al Yasmin district',
+          showTime: document.querySelector('input[name="showTime"]:checked')?.value,
+          ticketType: document.querySelector('input[name="ticketType"]:checked')?.value,
+          ticketQuantity: ticketQuantityInput.value,
+          popcornQuantity: popcornQuantityInput.value
+        };
+        
+        try {
+          const response = await fetch(`${API_BASE_URL}/booking`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(formData).toString()
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            alert(`Booking Successful!\nBooking ID: ${result.bookingId}\nTotal: ${result.pricing.total} SAR`);
+            window.location.href = 'index.html';
+          } else {
+            alert(`Booking Failed: ${result.error}`);
+          }
+        } catch (error) {
+          console.error('Booking failed:', error);
+          alert('Booking failed. Please try again.');
+        }
+      });
     });
   </script>
+  
+  <!-- Hidden field to store calculated total -->
+  <input type="hidden" id="calculatedTotal" name="calculatedTotal" value="0">
 
 </body>
 </html>

@@ -1,4 +1,5 @@
 package sa.edu.kau.fcit.cpit252.project.service;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,9 @@ import java.util.List;
 import sa.edu.kau.fcit.cpit252.project.model.Movie;
 import sa.edu.kau.fcit.cpit252.project.store.DatabaseConnection;
 
+/**
+ * Service for managing movies in the database.
+ */
 public class MovieService {
     
     /**
@@ -18,7 +22,7 @@ public class MovieService {
     public Movie getMovieById(int movieId) throws SQLException {
         String sql = "SELECT * FROM Movies WHERE movieId = ?";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.createConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, movieId);
@@ -44,7 +48,7 @@ public class MovieService {
     public Movie getMovieByName(String movieName) throws SQLException {
         String sql = "SELECT * FROM Movies WHERE LOWER(movieName) = LOWER(?)";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.createConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setString(1, movieName);
@@ -76,7 +80,7 @@ public class MovieService {
         // Create new movie
         String sql = "INSERT INTO Movies (movieName, description, imageUrl) VALUES (?, ?, ?)";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.createConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             
             stmt.setString(1, movieName);
@@ -102,7 +106,7 @@ public class MovieService {
         List<Movie> movies = new ArrayList<>();
         String sql = "SELECT * FROM Movies ORDER BY movieName";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.createConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             

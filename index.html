@@ -19,8 +19,25 @@
       alt="FAKEnetflix Logo"
     />
 
+    <!-- Movie Search Bar -->
+    <div class="search-container">
+      <input 
+        type="text" 
+        id="movieSearchInput" 
+        class="search-input" 
+        placeholder="Search movies from OMDB..."
+        autocomplete="off"
+      />
+      <button id="searchButton" class="search-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
+    </div>
+
     <div class="header-Links header-margin" >
-      <a href="C:/Users/ryan3/Desktop/HTML%20project/252Project/index.html" target="_blank">Home</a>
+      <a href="index.html">Home</a>
       <a href="#footerFQC">FQC</a>
         <a class="sign-in-link" href="CreatAccount.html">Sign in</a>
       <!-- From Uiverse.io by alexruix -->
@@ -30,6 +47,34 @@
       </label>
 
       
+    </div>
+  </div>
+
+  <!-- Search Results Modal -->
+  <div id="searchResultsModal" class="search-modal" style="display: none;">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <h2>Search Results</h2>
+        <button id="closeSearchModal" class="close-modal-btn">&times;</button>
+      </div>
+      <div id="searchResultsContainer" class="search-results-grid">
+        <!-- Results will be loaded here -->
+      </div>
+      <div id="searchLoading" class="search-loading" style="display: none;">
+        <div class="spinner"></div>
+        <p>Searching movies...</p>
+      </div>
+      <div id="searchError" class="search-error" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- Movie Details Modal -->
+  <div id="movieDetailsModal" class="search-modal" style="display: none;">
+    <div class="movie-details-content">
+      <button id="closeDetailsModal" class="close-modal-btn">&times;</button>
+      <div id="movieDetailsContainer">
+        <!-- Movie details will be loaded here -->
+      </div>
     </div>
   </div>
 
@@ -199,6 +244,202 @@
 
 </body>
 <script src="theme-switcher.js"></script>
+<script>
+  // API Base URL - Empty string means same origin (works for both local and deployed)
+  const API_BASE_URL = '';
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('movieSearchInput');
+    const searchButton = document.getElementById('searchButton');
+    const searchModal = document.getElementById('searchResultsModal');
+    const searchResultsContainer = document.getElementById('searchResultsContainer');
+    const searchLoading = document.getElementById('searchLoading');
+    const searchError = document.getElementById('searchError');
+    const closeSearchModal = document.getElementById('closeSearchModal');
+    const movieDetailsModal = document.getElementById('movieDetailsModal');
+    const movieDetailsContainer = document.getElementById('movieDetailsContainer');
+    const closeDetailsModal = document.getElementById('closeDetailsModal');
+
+    // Search function
+    async function searchMovies(query) {
+      if (!query.trim()) return;
+
+      searchModal.style.display = 'flex';
+      searchLoading.style.display = 'flex';
+      searchResultsContainer.innerHTML = '';
+      searchError.style.display = 'none';
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/movieapi?action=search&keyword=${encodeURIComponent(query)}`);
+        const data = await response.json();
+
+        searchLoading.style.display = 'none';
+
+        if (data.success && data.movies && data.movies.length > 0) {
+          displaySearchResults(data.movies);
+        } else {
+          searchError.textContent = 'No movies found. Try a different search term.';
+          searchError.style.display = 'block';
+        }
+      } catch (error) {
+        searchLoading.style.display = 'none';
+        searchError.textContent = 'Failed to search movies. Make sure the server is running.';
+        searchError.style.display = 'block';
+        console.error('Search error:', error);
+      }
+    }
+
+    // Display search results
+    function displaySearchResults(movies) {
+      searchResultsContainer.innerHTML = movies.map(movie => `
+        <div class="search-result-card" data-imdbid="${movie.imdbID}">
+          <img 
+            src="${movie.poster !== 'N/A' ? movie.poster : 'https://via.placeholder.com/200x300?text=No+Poster'}" 
+            alt="${movie.title}"
+            class="search-result-poster"
+            onerror="this.src='https://via.placeholder.com/200x300?text=No+Poster'"
+          />
+          <div class="search-result-info">
+            <h3 class="search-result-title">${movie.title}</h3>
+            <p class="search-result-year">${movie.year}</p>
+            <span class="search-result-type">${movie.type}</span>
+          </div>
+          <button class="view-details-btn" data-imdbid="${movie.imdbID}">View Details</button>
+          <a href="ChoosePlace.html?movie=${encodeURIComponent(movie.title)}" class="book-now-btn">Book Now</a>
+        </div>
+      `).join('');
+
+      // Add click handlers for view details buttons
+      document.querySelectorAll('.view-details-btn').forEach(btn => {
+        btn.addEventListener('click', () => getMovieDetails(btn.dataset.imdbid));
+      });
+    }
+
+    // Get movie details
+    async function getMovieDetails(imdbId) {
+      movieDetailsModal.style.display = 'flex';
+      movieDetailsContainer.innerHTML = '<div class="spinner"></div><p>Loading details...</p>';
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/movieapi?action=details&imdbId=${imdbId}`);
+        const data = await response.json();
+
+        if (data.success && data.movie) {
+          displayMovieDetails(data.movie);
+        } else {
+          movieDetailsContainer.innerHTML = '<p class="error">Failed to load movie details.</p>';
+        }
+      } catch (error) {
+        movieDetailsContainer.innerHTML = '<p class="error">Failed to load movie details. Server may be unavailable.</p>';
+        console.error('Details error:', error);
+      }
+    }
+
+    // Display movie details
+    function displayMovieDetails(movie) {
+      movieDetailsContainer.innerHTML = `
+        <div class="movie-details-layout">
+          <div class="movie-poster-section">
+            <img 
+              src="${movie.poster !== 'N/A' ? movie.poster : 'https://via.placeholder.com/300x450?text=No+Poster'}" 
+              alt="${movie.title}"
+              class="movie-details-poster"
+              onerror="this.src='https://via.placeholder.com/300x450?text=No+Poster'"
+            />
+            <a href="ChoosePlace.html?movie=${encodeURIComponent(movie.title)}" class="book-movie-btn">
+              🎬 Book Tickets Now
+            </a>
+          </div>
+          <div class="movie-info-section">
+            <h1 class="movie-details-title">${movie.title} <span class="movie-year">(${movie.year})</span></h1>
+            
+            <div class="movie-meta">
+              <span class="movie-rating">⭐ ${movie.imdbRating || 'N/A'}</span>
+              <span class="movie-runtime">🕐 ${movie.runtime || 'N/A'}</span>
+              <span class="movie-rated">📋 ${movie.rated || 'N/A'}</span>
+            </div>
+            
+            <div class="movie-genres">
+              ${(movie.genre || '').split(', ').map(g => `<span class="genre-tag">${g}</span>`).join('')}
+            </div>
+            
+            <div class="movie-section">
+              <h3>Plot</h3>
+              <p>${movie.plot || 'No plot available.'}</p>
+            </div>
+            
+            <div class="movie-section">
+              <h3>Cast</h3>
+              <p>${movie.actors || 'N/A'}</p>
+            </div>
+            
+            <div class="movie-section">
+              <h3>Director</h3>
+              <p>${movie.director || 'N/A'}</p>
+            </div>
+            
+            <div class="movie-section">
+              <h3>Writer</h3>
+              <p>${movie.writer || 'N/A'}</p>
+            </div>
+            
+            ${movie.awards && movie.awards !== 'N/A' ? `
+            <div class="movie-section awards">
+              <h3>🏆 Awards</h3>
+              <p>${movie.awards}</p>
+            </div>
+            ` : ''}
+            
+            ${movie.boxOffice && movie.boxOffice !== 'N/A' ? `
+            <div class="movie-section">
+              <h3>💰 Box Office</h3>
+              <p>${movie.boxOffice}</p>
+            </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Event listeners
+    searchButton.addEventListener('click', () => searchMovies(searchInput.value));
+    
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        searchMovies(searchInput.value);
+      }
+    });
+
+    closeSearchModal.addEventListener('click', () => {
+      searchModal.style.display = 'none';
+    });
+
+    closeDetailsModal.addEventListener('click', () => {
+      movieDetailsModal.style.display = 'none';
+    });
+
+    // Close modals when clicking outside
+    searchModal.addEventListener('click', (e) => {
+      if (e.target === searchModal) {
+        searchModal.style.display = 'none';
+      }
+    });
+
+    movieDetailsModal.addEventListener('click', (e) => {
+      if (e.target === movieDetailsModal) {
+        movieDetailsModal.style.display = 'none';
+      }
+    });
+
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchModal.style.display = 'none';
+        movieDetailsModal.style.display = 'none';
+      }
+    });
+  });
+</script>
 
 
 

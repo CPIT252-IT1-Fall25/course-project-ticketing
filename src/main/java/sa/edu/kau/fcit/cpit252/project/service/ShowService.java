@@ -1,4 +1,5 @@
 package sa.edu.kau.fcit.cpit252.project.service;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,9 @@ import java.util.List;
 import sa.edu.kau.fcit.cpit252.project.model.Show;
 import sa.edu.kau.fcit.cpit252.project.store.DatabaseConnection;
 
+/**
+ * Service for managing movie shows in the database.
+ */
 public class ShowService {
     
     /**
@@ -19,7 +23,7 @@ public class ShowService {
     public int getOrCreateShow(int movieId, String location, String showTime, String hallType) throws SQLException {
         String sql = "SELECT showId, availableSeats FROM Shows WHERE movieId = ? AND location = ? AND showTime = ?";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.createConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, movieId);
@@ -60,7 +64,7 @@ public class ShowService {
     public int getAvailableSeats(int showId) throws SQLException {
         String sql = "SELECT availableSeats FROM Shows WHERE showId = ?";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.createConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, showId);
@@ -83,7 +87,7 @@ public class ShowService {
         String sql = "UPDATE Shows SET availableSeats = availableSeats - ? " +
                     "WHERE showId = ? AND availableSeats >= ?";
         
-        try (Connection conn = DatabaseConnection.getConnection()) {
+        try (Connection conn = DatabaseConnection.createConnection()) {
             conn.setAutoCommit(false);
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -115,7 +119,7 @@ public class ShowService {
     public Show getShowById(int showId) throws SQLException {
         String sql = "SELECT * FROM Shows WHERE showId = ?";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.createConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, showId);
@@ -145,7 +149,7 @@ public class ShowService {
         List<Show> shows = new ArrayList<>();
         String sql = "SELECT * FROM Shows WHERE movieId = ?";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.createConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, movieId);
