@@ -95,7 +95,7 @@ Used in `Booking` class for creating complex booking objects with a fluent API. 
 
 ### 1. Clone the Repository
 ```sh
-git clone https://github.com/YOUR_USERNAME/course-project-ticketing.git
+git clone https://github.com/CPIT252-IT1-Fall25/course-project-ticketing.git
 cd course-project-ticketing
 ```
 
