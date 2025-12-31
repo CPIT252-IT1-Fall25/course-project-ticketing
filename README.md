@@ -129,5 +129,13 @@ Unit tests are implemented using JUnit 5 and Mockito covering:
 
 Run tests with:
 ```sh
-git clone https://github.com/YOUR_USERNAME/project-ticketing.git
+git clone https://github.com/CPIT252-IT1-Fall25/course-project-ticketing.git
 cd project-ticketing
+
+
+## LLM useage
+we have used ai in this project
+
+## License
+this is License to Yazan  and rayan
+
