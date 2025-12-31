@@ -90,6 +90,11 @@ Used in `Booking` class for creating complex booking objects with a fluent API. 
 - Mockito (Mocking)
 
 ---
+## LLM useage
+we have used ai in this project
+
+## License
+this is License to Yazan  and rayan
 
 ## How to Run the Project  
 
@@ -133,9 +138,5 @@ git clone https://github.com/CPIT252-IT1-Fall25/course-project-ticketing.git
 cd project-ticketing
 
 
-## LLM useage
-we have used ai in this project
 
-## License
-this is License to Yazan  and rayan
 
