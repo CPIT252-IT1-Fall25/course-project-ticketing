@@ -43,3 +43,4 @@ public class HashedLoginStrategy implements LoginStrategy {
     }
 }
 
+
