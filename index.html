@@ -294,18 +294,18 @@
       searchResultsContainer.innerHTML = movies.map(movie => `
         <div class="search-result-card" data-imdbid="${movie.imdbID}">
           <img 
-            src="${movie.poster !== 'N/A' ? movie.poster : 'https://via.placeholder.com/200x300?text=No+Poster'}" 
-            alt="${movie.title}"
+            src="${movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/200x300?text=No+Poster'}" 
+            alt="${movie.Title}"
             class="search-result-poster"
             onerror="this.src='https://via.placeholder.com/200x300?text=No+Poster'"
           />
           <div class="search-result-info">
-            <h3 class="search-result-title">${movie.title}</h3>
-            <p class="search-result-year">${movie.year}</p>
-            <span class="search-result-type">${movie.type}</span>
+            <h3 class="search-result-title">${movie.Title}</h3>
+            <p class="search-result-year">${movie.Year}</p>
+            <span class="search-result-type">${movie.Type}</span>
           </div>
           <button class="view-details-btn" data-imdbid="${movie.imdbID}">View Details</button>
-          <a href="ChoosePlace.html?movie=${encodeURIComponent(movie.title)}" class="book-now-btn">Book Now</a>
+          <a href="ChoosePlace.html?movie=${encodeURIComponent(movie.Title)}" class="book-now-btn">Book Now</a>
         </div>
       `).join('');
 
@@ -341,59 +341,59 @@
         <div class="movie-details-layout">
           <div class="movie-poster-section">
             <img 
-              src="${movie.poster !== 'N/A' ? movie.poster : 'https://via.placeholder.com/300x450?text=No+Poster'}" 
-              alt="${movie.title}"
+              src="${movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Poster'}" 
+              alt="${movie.Title}"
               class="movie-details-poster"
               onerror="this.src='https://via.placeholder.com/300x450?text=No+Poster'"
             />
-            <a href="ChoosePlace.html?movie=${encodeURIComponent(movie.title)}" class="book-movie-btn">
+            <a href="ChoosePlace.html?movie=${encodeURIComponent(movie.Title)}" class="book-movie-btn">
               🎬 Book Tickets Now
             </a>
           </div>
           <div class="movie-info-section">
-            <h1 class="movie-details-title">${movie.title} <span class="movie-year">(${movie.year})</span></h1>
+            <h1 class="movie-details-title">${movie.Title} <span class="movie-year">(${movie.Year})</span></h1>
             
             <div class="movie-meta">
               <span class="movie-rating">⭐ ${movie.imdbRating || 'N/A'}</span>
-              <span class="movie-runtime">🕐 ${movie.runtime || 'N/A'}</span>
-              <span class="movie-rated">📋 ${movie.rated || 'N/A'}</span>
+              <span class="movie-runtime">🕐 ${movie.Runtime || 'N/A'}</span>
+              <span class="movie-rated">📋 ${movie.Rated || 'N/A'}</span>
             </div>
             
             <div class="movie-genres">
-              ${(movie.genre || '').split(', ').map(g => `<span class="genre-tag">${g}</span>`).join('')}
+              ${(movie.Genre || '').split(', ').map(g => `<span class="genre-tag">${g}</span>`).join('')}
             </div>
             
             <div class="movie-section">
               <h3>Plot</h3>
-              <p>${movie.plot || 'No plot available.'}</p>
+              <p>${movie.Plot || 'No plot available.'}</p>
             </div>
             
             <div class="movie-section">
               <h3>Cast</h3>
-              <p>${movie.actors || 'N/A'}</p>
+              <p>${movie.Actors || 'N/A'}</p>
             </div>
             
             <div class="movie-section">
               <h3>Director</h3>
-              <p>${movie.director || 'N/A'}</p>
+              <p>${movie.Director || 'N/A'}</p>
             </div>
             
             <div class="movie-section">
               <h3>Writer</h3>
-              <p>${movie.writer || 'N/A'}</p>
+              <p>${movie.Writer || 'N/A'}</p>
             </div>
             
-            ${movie.awards && movie.awards !== 'N/A' ? `
+            ${movie.Awards && movie.Awards !== 'N/A' ? `
             <div class="movie-section awards">
               <h3>🏆 Awards</h3>
-              <p>${movie.awards}</p>
+              <p>${movie.Awards}</p>
             </div>
             ` : ''}
             
-            ${movie.boxOffice && movie.boxOffice !== 'N/A' ? `
+            ${movie.BoxOffice && movie.BoxOffice !== 'N/A' ? `
             <div class="movie-section">
               <h3>💰 Box Office</h3>
-              <p>${movie.boxOffice}</p>
+              <p>${movie.BoxOffice}</p>
             </div>
             ` : ''}
           </div>

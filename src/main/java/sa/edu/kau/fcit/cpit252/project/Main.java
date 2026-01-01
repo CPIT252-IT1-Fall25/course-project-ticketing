@@ -4,7 +4,13 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import sa.edu.kau.fcit.cpit252.project.controller.*;
+import sa.edu.kau.fcit.cpit252.project.controller.BookingServlet;
+import sa.edu.kau.fcit.cpit252.project.controller.LoginServlet;
+import sa.edu.kau.fcit.cpit252.project.controller.MovieApiServlet;
+import sa.edu.kau.fcit.cpit252.project.controller.PriceCalculationServlet;
+import sa.edu.kau.fcit.cpit252.project.controller.SeatAvailabilityServlet;
+import sa.edu.kau.fcit.cpit252.project.controller.SignupServlet;
+import sa.edu.kau.fcit.cpit252.project.controller.UserInfoServlet;
 
 /**
  * Main class to start the embedded Jetty server.
